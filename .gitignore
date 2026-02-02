@@ -1,0 +1,8 @@
+.mtci/
+mtci_artifacts/
+__pycache__/
+.pytest_cache/
+*.pyc
+progress.md
+prompt.md
+AGENTS.md

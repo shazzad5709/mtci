@@ -1,0 +1,53 @@
+profiles:
+  pr-fast:
+    budget_seconds: 8
+    max_examples: 5
+    retries_on_fail: 1
+    fail_on_flake: true
+    tolerance:
+      atol: 0.0
+      rtol: 0.05
+    mrs:
+      - mtci.mrs.batching.BatchingInvarianceMR
+      - mtci.mrs.whitespace.WhitespaceInvarianceMR
+      - mtci.mrs.idempotence.IdempotenceMR
+      - mtci.mrs.serialization.SerializationInvarianceMR
+    junit_flaky_as_failure: true
+  nightly:
+    budget_seconds: 30
+    max_examples: 20
+    retries_on_fail: 2
+    fail_on_flake: false
+    tolerance:
+      atol: 0.0
+      rtol: 0.02
+    mrs:
+      - mtci.mrs.batching.BatchingInvarianceMR
+      - mtci.mrs.whitespace.WhitespaceInvarianceMR
+      - mtci.mrs.idempotence.IdempotenceMR
+      - mtci.mrs.serialization.SerializationInvarianceMR
+    junit_flaky_as_failure: false
+  release-gate:
+    budget_seconds: 60
+    max_examples: 50
+    retries_on_fail: 2
+    fail_on_flake: true
+    tolerance:
+      atol: 0.0
+      rtol: 0.01
+    mrs:
+      - mtci.mrs.batching.BatchingInvarianceMR
+      - mtci.mrs.whitespace.WhitespaceInvarianceMR
+      - mtci.mrs.idempotence.IdempotenceMR
+      - mtci.mrs.serialization.SerializationInvarianceMR
+    junit_flaky_as_failure: true
+
+dataset:
+  path: assets/sample.jsonl
+  jsonl_field: text
+
+model:
+  mode: endpoint
+  base_url: http://127.0.0.1:8000
+  predict_path: /predict
+  timeout_s: 10
